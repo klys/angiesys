@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Factura" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5f851756-e6a4-4677-acaa-6812f216f67c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="58"/>
+	<style name="style1"/>
+	<parameter name="fid" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nombrep" class="java.lang.String">
+		<defaultValueExpression><![CDATA["N/A"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ciudadp" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="rifcip" class="java.lang.String">
+		<defaultValueExpression><![CDATA["N/A"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="domiciliop" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="telefonop" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     productos_facturas."cantidad" AS productos_facturas_cantidad,
+     productos_facturas."precio" AS productos_facturas_precio,
+     productos_facturas."facturas_id" AS productos_facturas_facturas_id,
+     productos."nombre" AS productos_nombre,
+     productos."descripcion" AS productos_descripcion,
+     facturas."iva" As iva,
+     facturas."ivapor" as ivap,
+     facturas."fecha" as fecha,
+     facturas."subtotal" as st,
+     facturas."total" as total,
+     facturas."exento" as ex
+
+FROM
+    "facturas" facturas
+INNER JOIN "productos_facturas" productos_facturas ON facturas."id" = productos_facturas."facturas_id"
+INNER JOIN "productos" productos ON productos.id = productos_facturas.productos_id
+
+WHERE facturas."id" = $P{fid}]]>
+	</queryString>
+	<field name="productos_facturas_cantidad" class="java.lang.Object"/>
+	<field name="productos_facturas_precio" class="java.lang.Object"/>
+	<field name="productos_facturas_facturas_id" class="java.lang.Object"/>
+	<field name="productos_nombre" class="java.lang.Object"/>
+	<field name="productos_descripcion" class="java.lang.Object"/>
+	<field name="iva" class="java.lang.Object"/>
+	<field name="ivap" class="java.lang.Object"/>
+	<field name="fecha" class="java.lang.Object"/>
+	<field name="st" class="java.lang.Object"/>
+	<field name="total" class="java.lang.Object"/>
+	<field name="ex" class="java.lang.Object"/>
+	<title>
+		<band height="96"/>
+	</title>
+	<pageHeader>
+		<band height="57">
+			<textField>
+				<reportElement uuid="7f04acbf-5834-434f-8211-754b5f35a9cd" x="449" y="12" width="73" height="20" forecolor="#FF0000"/>
+				<textElement textAlignment="Center">
+					<font size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{productos_facturas_facturas_id}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="138">
+			<textField>
+				<reportElement uuid="44592116-08b0-4e31-8efb-b46207d18958" x="455" y="14" width="70" height="20" forecolor="#FF0000"/>
+				<textElement textAlignment="Center">
+					<font size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{productos_facturas_facturas_id}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="cfdc623f-f801-4e05-9977-4ece268da84d" x="36" y="24" width="60" height="20" forecolor="#FF0000"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{ciudadp}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="293a55c1-0872-4d0c-be11-60aeb21c13f5" x="167" y="55" width="250" height="20" forecolor="#FF0000"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{nombrep}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="66f784a9-5750-4f06-b18a-3e3232bc769a" x="460" y="53" width="78" height="20" forecolor="#FF0000"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{rifcip}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="43d2c213-f6a0-45fb-bd03-175d1bb6eaed" x="460" y="77" width="78" height="18" forecolor="#FF0000"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{telefonop}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="36a911ac-2dda-4e31-af91-eb36353486b9" x="100" y="78" width="307" height="20" forecolor="#FF0000"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{domiciliop}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MM yyyy">
+				<reportElement uuid="c46fa8ee-005c-401d-a6ed-80b4a2c1152f" x="104" y="24" width="93" height="18" forecolor="#FF0000"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c8a5a320-b718-4b32-8edb-a21f78f96489" x="2" y="115" width="553" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["   "]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement uuid="6f3441fc-f70c-450f-9c8e-c09cef4bcf13" x="22" y="0" width="94" height="14" forecolor="#FF0000"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{productos_facturas_cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="50c4387a-9fd3-4378-9e25-4a4c36b1bb84" x="119" y="0" width="248" height="14" forecolor="#FF0000"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{productos_nombre} +" - "+ $F{productos_descripcion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="ab235baf-f7a9-4c50-90aa-bb5b21a30c9e" x="369" y="0" width="98" height="14" forecolor="#FF0000"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{productos_facturas_precio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="63b89272-8349-42e1-941d-de3e7cab3a81" x="470" y="0" width="71" height="14" forecolor="#FF0000"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{productos_facturas_cantidad}*$F{productos_facturas_precio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<lastPageFooter>
+		<band height="156">
+			<textField>
+				<reportElement uuid="e8e6cb62-7137-4853-bf0d-66e577b47a83" x="300" y="48" width="48" height="18" forecolor="#FF0000"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ivap}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="0afc470b-d954-4597-9b17-adbd57743ce2" x="475" y="-10" width="68" height="14" forecolor="#FF0000"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{st}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="23c715d2-d576-4c9c-96f9-a9e30ba163f4" x="471" y="25" width="72" height="20" forecolor="#FF0000"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ex}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement uuid="55a9db8e-a0e5-4bc4-bd5d-682f4d865f1a" mode="Transparent" x="472" y="47" width="70" height="19" forecolor="#FF0000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{iva}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="9d35fcc9-d0b4-49b9-818f-acda88060632" x="472" y="68" width="70" height="18" forecolor="#FF0000"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>
